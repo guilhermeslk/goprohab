@@ -2,7 +2,10 @@
  * App functions
  */
 
-require('dotenv').config()
+require("dotenv").config();
+
+const env = process.env.NODE_ENV || "development";
+const config = require(__dirname + "/config/config.json")[env];
 
 const puppeteer = require("puppeteer");
 
@@ -15,7 +18,6 @@ const queryProperty = async (reference) => {
 
   const BASE_URL =
     "https://www.habitacao.sp.gov.br/graprohab/PesquisaProtocoloGraprohab.aspx";
-
 
   const FORM_ELEMENTS_IDS = {
     referenceInput: "#ContentPlaceHolder1_txtNrProtocolo",
@@ -31,8 +33,6 @@ const queryProperty = async (reference) => {
   await page.waitForSelector(selector);
 
   const result = await page.evaluate((selector) => {
-
-
     const RESULT_ATTRS_ELEMENTS = {
       Número: "#ContentPlaceHolder1_lblNrProtocolo",
       Interessado: "#ContentPlaceHolder1_lblInteressado",
@@ -85,11 +85,14 @@ const convertToCSV = (results) => {
  * Sequelize
  */
 const Sequelize = require("sequelize");
+ 
+let sequelize = null;
 
-const sequelize = new Sequelize({
-  database: process.env.DATABASE_URL,
-  dialect: process.env.DIALECT,
-});
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable]);
+} else {
+  sequelize = new Sequelize({ database: config.database, dialect: config.dialect });
+}
 
 const Property = sequelize.define("empreendimento", {
   numero: {
@@ -213,7 +216,6 @@ const fetchAndSaveProperty = (reference) => {
     return Property.sync().then(() => savePropertyToDatabase(result));
   });
 };
-
 
 app.get("/property", [query("reference").exists()], (req, res) => {
   const errors = validationResult(req);
