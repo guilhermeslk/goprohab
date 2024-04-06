@@ -86,7 +86,7 @@ const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize({
   database: process.env.DATABASE_URL,
-  dialect: "sqlite",
+  dialect: process.env.DIALECT,
 });
 
 const Property = sequelize.define("empreendimento", {
