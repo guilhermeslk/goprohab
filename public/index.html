@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Graprohab</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css" rel="stylesheet" integrity="sha384-gv0oNvwnqzF6ULI9TVsSmnULNb3zasNysvWwfT/s4l8k5I+g6oFz9dye0wg3rQ2Q" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app" class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1>{{ title }}</h1>
+        <hr />
+
+        <div class="well">
+          <form @submit.prevent="queryProperty">
+            <div class="form-group">
+              <input
+                v-model="query"
+                type="text" class="form-control" id="reference" placeholder="Protocolo" />
+            </div>
+            <div class="text-left">
+              <button type="submit" class="btn btn-default">
+                <i class="fa fa-search"></i> Consultar</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="text-right">
+          <button class="btn btn-warning"
+                @click="queryAllProperties()"><i class="fa fa-refresh"></i> Atualizar Todas
+          </button>
+
+          <a href="/download-file" class="btn btn-primary">
+            <i class="fa fa-download"></i> Baixar CSV
+          </a>
+        </div>
+
+        <hr />
+
+        <h4>Últimas consultas realizadas</h4>
+        <div class="text-center" v-if="loading">
+          <i class="fa fa-spin fa-spinner fa-2x"></i>
+          <span v-if="total > 0">Atualizando {{ counter }} de {{ total }}</span>
+        </div>
+        <table class="table table-striped table-responsive">
+          <thead>
+            <tr>
+              <th v-for="header in headers">{{ header }}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-bind:style="rowColor(row)" v-for="row in rows">
+              <td>{{ row['Número'] }}</td>
+              <td>{{ row['Interessado'] }}</td>
+              <td>{{ row['Empreendimento'] }}</td>
+              <td>{{ row['Município'] }}</td>
+              <td>{{ row['Data Entrada'] }}</td>
+              <td>{{ row['Data da Última Reunião Prevista'] }}</td>
+              <td>{{ row['Assunto da Reunião'] }}</td>
+              <td>{{ row['Certificado'] }}</td>
+              <td>{{ row['Situação'] }}</td>
+              <td>{{ row['Tipo Empreendimento'] }}</td>
+              <td>{{ row['Data da Última Reunião Realizada'] }}</td>
+              <td>{{ row['Voto da Reunião'] }}</td>
+              <td>{{ row['Últ Consulta']}}</td>
+              <td>
+                <button type="button" class="btn btn-primary"
+                  @click="updateProperty($event, row['Número'])"><i  v-if="!loading" class="fa fa-refresh"></i> Atualizar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+  <script type="importmap">
+    { "imports": {
+        "vue":        "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.41/vue.esm-browser.prod.js",
+        "vue-router": "https://cdnjs.cloudflare.com/ajax/libs/vue-router/4.1.5/vue-router.esm-browser.min.js"
+    } }
+  </script>    
+  <script src="/js/index.js" type="module"></script>
+</body>
+</html>

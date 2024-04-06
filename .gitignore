@@ -1,0 +1,5 @@
+.DS_Store
+results.csv
+node_modules/*
+
+db/*

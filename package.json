@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "express-validator": "^7.0.1",
+    "pg": "^8.11.5",
+    "pg-hstore": "^2.3.2",
+    "puppeteer": "^1.1.1",
+    "sequelize": "^6.37.2",
+    "sqlite3": "^5.1.7"
+  },
+  "name": "graprohab",
+  "version": "0.0.1",
+  "main": "graprohab.js",
+  "scripts": {
+    "start": "node graprohab.js"
+  },
+  "author": "Guilherme Solinscki",
+  "license": "ISC",
+  "description": ""
+}
