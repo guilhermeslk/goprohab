@@ -1,9 +1,10 @@
 import { createApp } from "vue";
 // import { moment }  from "moment";
 
-const test = () => {
-  alert("Hello");
-};
+const browser = await puppeteer.launch({
+  headless: true,
+  args: ['--no-sandbox','--disable-setuid-sandbox']
+})
 
 createApp({
   methods: {
