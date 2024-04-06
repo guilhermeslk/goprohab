@@ -7,7 +7,6 @@ require('dotenv').config()
 const puppeteer = require("puppeteer");
 
 const queryProperty = async (reference) => {
-  // const browser = await puppeteer.launch();
   const browser = await puppeteer.launch({
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
