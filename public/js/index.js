@@ -1,12 +1,7 @@
 import { createApp } from "vue";
 // import { moment }  from "moment";
 
-const browser = await puppeteer.launch({
-  headless: true,
-  args: ['--no-sandbox','--disable-setuid-sandbox']
-})
-
-createApp({
+createApp({ 
   methods: {
     rowColor: function (row) {
       /*if (moment().diff(row.updatedAt, "days") > 1) {
