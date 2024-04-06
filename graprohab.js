@@ -85,8 +85,7 @@ const convertToCSV = (results) => {
  * Sequelize
  */
 const Sequelize = require("sequelize");
-console.log(process.env.DIALECT)
-console.log(process.env.DATABASE_URL)
+
 const sequelize = new Sequelize({
   database: process.env.DATABASE_URL,
   dialect: process.env.DIALECT,
