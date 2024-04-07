@@ -185,8 +185,6 @@ const savePropertyToDatabase = (result) => {
     votoReuniao: result["Voto da Reunião"],
   };
 
-  const reference = result["Número"];
-
   return Property.upsert(data);
 };
 
