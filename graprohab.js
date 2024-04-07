@@ -89,7 +89,14 @@ const Sequelize = require("sequelize");
 let sequelize = null;
 
 if (env == "production") {
-  sequelize = new Sequelize(process.env[config.use_env_variable]);
+  sequelize = new Sequelize(process.env[config.use_env_variable], {
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
+  });
 } else {
   sequelize = new Sequelize({
     database: process.env.DATABASE_URL,
