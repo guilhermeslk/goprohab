@@ -85,8 +85,17 @@ const convertToCSV = (results) => {
  * Sequelize
  */
 const Sequelize = require("sequelize");
- 
-const sequelize = new Sequelize(config);
+
+let sequelize = null;
+
+if (env == "production") {
+  sequelize = new Sequelize(process.env[config.use_env_variable]);
+} else {
+  sequelize = new Sequelize({
+    database: process.env.DATABASE_URL,
+    dialect: process.env.DIALECT,
+  });
+}
 
 const Property = sequelize.define("empreendimento", {
   numero: {
