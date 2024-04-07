@@ -53,8 +53,6 @@ createApp({
         const contentType = response.headers.get("content-type");
 
         if (contentType && contentType.indexOf("application/json") !== -1) {
-          //          console.log(response.json())
-
           return response.json().then(function (json) {
             self.loading = false;
             self.query = "";
@@ -87,8 +85,10 @@ createApp({
       });
     },
   },
-  setup() {
-    // self.fetchSavedProperties();
+  setup() { 
+  },
+  created() {
+    this.fetchSavedProperties();
   },
   data() {
     return {
