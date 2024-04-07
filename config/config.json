@@ -1,6 +1,6 @@
 {
   "development": {
-    "database": "db/graprohab.db",
+    "storage": "db/graprohab.db",
     "dialect": "sqlite"
   },
   "production": {

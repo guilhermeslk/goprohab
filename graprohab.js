@@ -99,8 +99,8 @@ if (env == "production") {
   });
 } else {
   sequelize = new Sequelize({
-    database: process.env.DATABASE_URL,
-    dialect: process.env.DIALECT,
+    storage: process.env.DB_STORAGE || config.storage,
+    dialect: process.env.DIALECT || config.dialect,
   });
 }
 
